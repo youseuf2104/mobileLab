@@ -10,8 +10,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import java.util.HashSet;
 
 public class NoteEditorActivity extends AppCompatActivity {
@@ -60,5 +64,21 @@ public class NoteEditorActivity extends AppCompatActivity {
                 // add your code here
             }
         });
+
+        //ADDED
+
+        findViewById(R.id.done_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                /*
+                NavHostFragment.findNavController(NoteEditorActivity.this)
+                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                        */
+                 finish();
+            }
+        });
+
+
     }
 }
+
