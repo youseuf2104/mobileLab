@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">NoteMe</string>
     <string name="add_note_text">Add Note</string>
-    <string name="text2_">Subtitle</string>
+    <string name="note_subtitle">Note Subtitle</string>
     <string name="done_button_text">Done</string>
     <string name="second_fragment_label">second_fragment_label</string>
     <string name="first_fragment_label">first_fragment_label</string>
