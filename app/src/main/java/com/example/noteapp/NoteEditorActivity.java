@@ -26,7 +26,8 @@ public class NoteEditorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_editor);
 
-        EditText editText = findViewById(R.id.editText);
+        EditText editTitleText = findViewById(R.id.editTextTitle);
+        EditText editContentText = findViewById(R.id.editText);
 
         // Fetch data that is passed from MainActivity
         Intent intent = getIntent();
@@ -34,16 +35,19 @@ public class NoteEditorActivity extends AppCompatActivity {
         // Accessing the data using key and value
         noteId = intent.getIntExtra("noteId", -1);
         if (noteId != -1) {
-            editText.setText(MainActivity.notes.get(noteId));
+            editTitleText.setText(MainActivity.notes.get(noteId));
+            editContentText.setText(MainActivity.notesContent.get(noteId));
         } else {
 
             MainActivity.notes.add("");
+            MainActivity.notesContent.add("");
             noteId = MainActivity.notes.size() - 1;
+            noteId = MainActivity.notesContent.size() - 1;
             MainActivity.arrayAdapter.notifyDataSetChanged();
 
         }
 
-        editText.addTextChangedListener(new TextWatcher() {
+        editTitleText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 // add your code here
@@ -57,6 +61,13 @@ public class NoteEditorActivity extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.example.notes", Context.MODE_PRIVATE);
                 HashSet<String> set = new HashSet(MainActivity.notes);
                 sharedPreferences.edit().putStringSet("notes", set).apply();
+
+                //ADDED
+                MainActivity.notesContent.set(noteId, String.valueOf(charSequence));
+                SharedPreferences sharedPreferences2 = getApplicationContext().getSharedPreferences("com.example.notes", Context.MODE_PRIVATE);
+                HashSet<String> set2 = new HashSet(MainActivity.notesContent);
+                sharedPreferences2.edit().putStringSet("notesContent", set2).apply();
+
             }
 
             @Override
@@ -64,6 +75,7 @@ public class NoteEditorActivity extends AppCompatActivity {
                 // add your code here
             }
         });
+
 
         //ADDED
 

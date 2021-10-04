@@ -24,7 +24,9 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity {
 
     static ArrayList<String> notes = new ArrayList<>();
+    static ArrayList<String> notesContent = new ArrayList<>();
     static ArrayAdapter arrayAdapter;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -58,12 +60,17 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.listView);
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.example.notes", Context.MODE_PRIVATE);
         HashSet<String> set = (HashSet<String>) sharedPreferences.getStringSet("notes", null);
+        //ADDED
+        getApplicationContext().getSharedPreferences("com.example.notesContent", Context.MODE_PRIVATE);
+        HashSet<String> set2 = (HashSet<String>) sharedPreferences.getStringSet("notesContent", null);
 
         if (set == null) {
 
             notes.add("Example note");
+            notesContent.add("Add Content");
         } else {
             notes = new ArrayList(set);
+            notesContent = new ArrayList(set);
         }
 
         // Using custom listView Provided by Android Studio
@@ -81,10 +88,29 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
 
             }
+
+
+
+
         });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        //ADDED, need to fix intent.putExtra line specifically (using int i value i think)
+        findViewById(R.id.add_note_button).setOnClickListener(new View.OnClickListener() {
             @Override
+            public void onClick(View view){
+                /*
+                NavHostFragment.findNavController(NoteEditorActivity.this)
+                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                        */
+                Intent intent = new Intent(getApplicationContext(), NoteEditorActivity.class);
+                intent.putExtra("noteId",1);
+                startActivity(intent);
+            }
+        });
+
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            //@Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 final int itemToDelete = i;

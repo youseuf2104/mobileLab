@@ -5,4 +5,7 @@
     <string name="done_button_text">Done</string>
     <string name="second_fragment_label">second_fragment_label</string>
     <string name="first_fragment_label">first_fragment_label</string>
+    <string name="edit_title_text">Write Note Title</string>
+    <string name="note_hint_text">Label the note</string>
+    Label the note
 </resources>
